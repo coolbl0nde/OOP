@@ -6,11 +6,12 @@ import java.util.Random;
 public class User {
     private int id;
     private DataBase dataBase;
-    private static DataBase dataBase2;
+    private static DataBase staticDataBase;
 
     public User(String name, String surname, String phoneNumber, String username, String password, DataBase dataBase) {
         this.id = new Random().nextInt();
 
+        staticDataBase = dataBase;
         this.dataBase = dataBase;
         this.dataBase.addUser(this.id, name, surname, phoneNumber, username, password);
 
@@ -32,7 +33,7 @@ public class User {
         return null;
     }
     static public String getName(int id){
-        List<Map<String, Object>> userList = dataBase2.getUsersList();
+        List<Map<String, Object>> userList = staticDataBase.getUsersList();
 
         for (Map<String, Object> user : userList) {
             if (user.get("id").equals(id)) {
