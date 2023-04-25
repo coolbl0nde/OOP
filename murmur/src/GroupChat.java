@@ -7,11 +7,10 @@ public class GroupChat extends Chat{
     private int id;
     private DataBase dataBase;
     public GroupChat(int firstUser, int secondUser, String name, DataBase dataBase){
-        super(firstUser, secondUser, dataBase);
+        super(firstUser, secondUser, name, dataBase);
         this.id = new Random().nextInt();
 
         this.dataBase = dataBase;
-        dataBase.addGroupChat(this.id, firstUser, secondUser, name);
     }
 
     public void addUser(int userId){
