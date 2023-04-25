@@ -5,12 +5,20 @@ public class Chat {
 
     private int id;
     private DataBase dataBase;
+    static private DataBase staticDataBase;
 
     public Chat(int firstUser, int secondUser, DataBase dataBase){
         this.id = new Random().nextInt();
 
         this.dataBase = dataBase;
         dataBase.addChat(this.id, firstUser, secondUser);
+    }
+
+    public Chat(int firstUser, int secondUser, String name, DataBase dataBase){
+        this.id = new Random().nextInt();
+
+        this.dataBase = dataBase;
+        dataBase.addGroupChat(this.id, firstUser, secondUser, name);
     }
 
     public int getId(){
@@ -49,8 +57,8 @@ public class Chat {
         return textOfMessages;
     }
 
-    public void deleteChat(int chatId){
-        List<Map<String, Object>> chats = dataBase.getChatList();
+    static public void deleteChat(int chatId){
+        List<Map<String, Object>> chats = staticDataBase.getChatList();
 
         for(Map<String, Object> chat : chats){
             if(chat.get("id").equals(chatId)){
@@ -60,8 +68,8 @@ public class Chat {
         }
     }
 
-    public List<Integer> listOfChats(){
-        List<Map<String, Object>> chats = dataBase.getChatList();
+    static public List<Integer> listOfChats(){
+        List<Map<String, Object>> chats = staticDataBase.getChatList();
         List<Integer> chatsId = new ArrayList<>();
 
         for(Map<String, Object> chat : chats){
