@@ -6,7 +6,8 @@ import java.util.*;
 public class Message {
     private int id;
     private Map<String, Object> messageData;
-    DataBase dataBase;
+    private DataBase dataBase;
+    static DataBase staticDataBase;
 
     public Message(String text, int senderId, DataBase dataBase){
         this.id = new Random().nextInt();
@@ -17,6 +18,7 @@ public class Message {
         String date = dateFormat.format(calendar.getTime());
         String time = timeFormat.format(calendar.getTime());
 
+        staticDataBase = dataBase;
         this.dataBase = dataBase;
         dataBase.addMessage(this.id, text, date, time, senderId);
     }
@@ -25,11 +27,49 @@ public class Message {
         return this.id;
     }
 
+    static public String getSender(int messageId){
+        List<Map<String, Object>> messageList = staticDataBase.getMessagesList();
+
+        for(Map<String, Object> message : messageList){
+            if(message.get("id").equals(messageId)){
+                int senderId = (Integer) message.get("sender");
+                return (String)User.getName(senderId);
+            }
+        }
+
+        return null;
+    }
+
+    public int getSender(){
+        List<Map<String, Object>> messageList = dataBase.getMessagesList();
+
+        for(Map<String, Object> message : messageList){
+            if(message.get("id").equals(this.id)){
+                int senderId = (Integer) message.get("sender");
+                return (Integer) message.get("sender");
+            }
+        }
+
+        return 0;
+    }
+
     public String getText(){
         List<Map<String, Object>> messageList = dataBase.getMessagesList();
 
         for(Map<String, Object> message : messageList){
             if(message.get("id").equals(this.id)){
+                return (String) message.get("text");
+            }
+        }
+
+        return null;
+    }
+
+    static public String getText(int messageId){
+        List<Map<String, Object>> messageList = staticDataBase.getMessagesList();
+
+        for(Map<String, Object> message : messageList){
+            if(message.get("id").equals(messageId)){
                 return (String) message.get("text");
             }
         }
