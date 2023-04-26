@@ -76,7 +76,7 @@ public class DataBase {
     public List<Map<String, Object>> getChatList(){
         return this.chatList;
     }
-    public List<Map<String, Object>> getGroupChatList(){
+    /*public List<Map<String, Object>> getGroupChatList(){
         return this.chatList;
-    }
+    }*/
 }

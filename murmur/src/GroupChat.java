@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class GroupChat extends Chat{
-    private int id;
-    private DataBase dataBase;
+    private final int id;
+    private final DataBase dataBase;
     public GroupChat(int firstUser, int secondUser, String name, DataBase dataBase){
         super(firstUser, secondUser, name, dataBase);
         this.id = new Random().nextInt();

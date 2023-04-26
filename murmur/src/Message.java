@@ -4,9 +4,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Message {
-    private int id;
+    private final int id;
     private Map<String, Object> messageData;
-    private DataBase dataBase;
+    private final DataBase dataBase;
     static DataBase staticDataBase;
 
     public Message(String text, int senderId, DataBase dataBase){

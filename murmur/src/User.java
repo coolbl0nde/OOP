@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class User {
     private int id;
-    private DataBase dataBase;
+    private final DataBase dataBase;
     private static DataBase staticDataBase;
 
     public User(String name, String surname, String phoneNumber, String username, String password, DataBase dataBase) {

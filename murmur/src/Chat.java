@@ -3,13 +3,14 @@ import java.util.*;
 
 public class Chat {
 
-    private int id;
-    private DataBase dataBase;
+    private final int id;
+    private final DataBase dataBase;
     static private DataBase staticDataBase;
 
     public Chat(int firstUser, int secondUser, DataBase dataBase){
         this.id = new Random().nextInt();
 
+        staticDataBase = dataBase;
         this.dataBase = dataBase;
         dataBase.addChat(this.id, firstUser, secondUser);
     }
@@ -37,7 +38,28 @@ public class Chat {
     }
 
     public void deleteMessage(int messageId){
+        List<Map<String, Object>> chats = dataBase.getChatList();
 
+        for(Map<String, Object> chat : chats){
+            if (chat.get("id").equals(this.id)) {
+                List<Integer> updatedMessages = (List<Integer>)chat.get("messages");
+
+                if(updatedMessages.contains(messageId)) {
+                    updatedMessages.remove(Integer.valueOf(messageId));
+                }
+                break;
+            }
+        }
+
+        List<Map<String, Object>> messages = dataBase.getMessagesList();
+
+        for(Map<String, Object> message : messages){
+            if (message.get("id").equals(this.id)) {
+                messages.remove(message);
+
+                break;
+            }
+        }
     }
 
     public Map<String, String > messagesList(){
