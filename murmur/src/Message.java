@@ -1,15 +1,10 @@
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Message {
     private final int id;
-    private Map<String, Object> messageData;
-    private final DataBase dataBase;
-    static DataBase staticDataBase;
 
-    public Message(String text, int senderId, DataBase dataBase){
+    public Message(String text, int senderId){
         this.id = new Random().nextInt();
 
         Calendar calendar = Calendar.getInstance();
@@ -18,97 +13,30 @@ public class Message {
         String date = dateFormat.format(calendar.getTime());
         String time = timeFormat.format(calendar.getTime());
 
-        staticDataBase = dataBase;
-        this.dataBase = dataBase;
-        dataBase.addMessage(this.id, text, date, time, senderId);
+        MessageManager.addMessage(this.id, text, date, time, senderId);
     }
 
     public int getId(){
         return this.id;
     }
 
-    static public String getSender(int messageId){
-        List<Map<String, Object>> messageList = staticDataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(messageId)){
-                int senderId = (Integer) message.get("sender");
-                return (String)User.getName(senderId);
-            }
-        }
-
-        return null;
+    public static String getSender(int id){
+        return MessageManager.getSender(id);
     }
 
-    public int getSender(){
-        List<Map<String, Object>> messageList = dataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(this.id)){
-                int senderId = (Integer) message.get("sender");
-                return (Integer) message.get("sender");
-            }
-        }
-
-        return 0;
-    }
-
-    public String getText(){
-        List<Map<String, Object>> messageList = dataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(this.id)){
-                return (String) message.get("text");
-            }
-        }
-
-        return null;
-    }
-
-    static public String getText(int messageId){
-        List<Map<String, Object>> messageList = staticDataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(messageId)){
-                return (String) message.get("text");
-            }
-        }
-
-        return null;
+    public static String getText(int id){
+        return MessageManager.getText(id);
     }
 
     public void setText(String text){
-        List<Map<String, Object>> messageList = dataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(this.id)){
-                message.put("text", text);
-                break;
-            }
-        }
+        MessageManager.setText(text, this.id);
     }
 
     public String getDate(){
-        List<Map<String, Object>> messageList = dataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(this.id)){
-                return (String) message.get("date");
-            }
-        }
-
-        return null;
+        return MessageManager.getDate(this.id);
     }
 
     public String getTime(){
-        List<Map<String, Object>> messageList = dataBase.getMessagesList();
-
-        for(Map<String, Object> message : messageList){
-            if(message.get("id").equals(this.id)){
-                return (String) message.get("time");
-            }
-        }
-
-        return null;
+        return MessageManager.getTime(this.id);
     }
 }

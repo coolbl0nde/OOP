@@ -1,19 +1,12 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class User {
     private int id;
-    private final DataBase dataBase;
-    private static DataBase staticDataBase;
 
-    public User(String name, String surname, String phoneNumber, String username, String password, DataBase dataBase) {
+    public User(String name, String surname, String phoneNumber, String username, String password) {
         this.id = new Random().nextInt();
 
-        staticDataBase = dataBase;
-        this.dataBase = dataBase;
-        this.dataBase.addUser(this.id, name, surname, phoneNumber, username, password);
+        UserManager.addUser(this.id, name, surname, phoneNumber, username, password);
 
     }
 
@@ -21,129 +14,43 @@ public class User {
         return this.id;
     }
 
-    public String getName() {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                return (String)user.get("name");
-            }
-        }
-
-        return null;
-    }
-    static public String getName(int id){
-        List<Map<String, Object>> userList = staticDataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                return (String)user.get("name");
-            }
-        }
-
-        return null;
+    public static String getName(int id){
+        return UserManager.getName(id);
     }
 
     public void setName(String name) {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                user.put("name", name);
-                break;
-            }
-        }
+        UserManager.setName(name, this.id);
     }
 
     public String getSurname() {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                return (String)user.get("surname");
-            }
-        }
-
-        return null;
+        return UserManager.getSurname(this.id);
     }
 
     public void setSurname(String surname) {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                user.put("surname", surname);
-                break;
-            }
-        }
+        UserManager.setSurname(surname, this.id);
     }
 
     public String getPhoneNumber() {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                return (String)user.get("phoneNumber");
-            }
-        }
-
-        return null;
+        return UserManager.getPhoneNumber(this.id);
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                user.put("phoneNumber", phoneNumber);
-                break;
-            }
-        }
+        UserManager.setPhoneNumber(phoneNumber, this.id);
     }
 
     public String getUsername() {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                return (String)user.get("username");
-            }
-        }
-
-        return null;
+        return UserManager.getUsername(this.id);
     }
 
     public void setUsername(String username) {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                user.put("username", username);
-                break;
-            }
-        }
+        UserManager.setUsername(username, this.id);
     }
 
     public String getPassword() {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                return (String)user.get("password");
-            }
-        }
-
-        return null;
+        return UserManager.getPassword(this.id);
     }
 
     public void setPassword(String password) {
-        List<Map<String, Object>> userList = dataBase.getUsersList();
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(this.id)) {
-                user.put("password", password);
-                break;
-            }
-        }
+        UserManager.setPassword(password, this.id);
     }
 }
