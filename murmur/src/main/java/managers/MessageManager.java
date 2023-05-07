@@ -1,3 +1,7 @@
+package managers;
+
+import entities.User;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +30,7 @@ public class MessageManager {
         for(Map<String, Object> message : messageList){
             if(message.get("id").equals(id)){
                 int senderId = (Integer) message.get("sender");
-                return (String)User.getName(senderId);
+                return (String) User.getName(senderId);
             }
         }
 
@@ -73,6 +77,18 @@ public class MessageManager {
         for(Map<String, Object> message : messageList){
             if(message.get("id").equals(id)){
                 return (String) message.get("time");
+            }
+        }
+
+        return null;
+    }
+
+    public static Map<String,Object> getMessageInfo(int id){
+        List<Map<String, Object>> messages = dataBase.get("message");
+
+        for(Map<String, Object> message : messages){
+            if(message.get("id").equals(id)){
+                return message;
             }
         }
 

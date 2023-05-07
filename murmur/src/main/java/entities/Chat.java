@@ -1,3 +1,7 @@
+package entities;
+
+import managers.ChatManager;
+
 import java.util.*;
 
 public class Chat {

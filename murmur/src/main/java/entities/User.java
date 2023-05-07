@@ -1,3 +1,7 @@
+package entities;
+
+import managers.UserManager;
+
 import java.util.Random;
 
 public class User {

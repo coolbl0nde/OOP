@@ -1,3 +1,7 @@
+package entities;
+
+import managers.MessageManager;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 

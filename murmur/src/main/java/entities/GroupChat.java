@@ -1,7 +1,11 @@
-import java.util.List;
-import java.util.Random;
+package entities;
 
-public class GroupChat extends Chat{
+import entities.Chat;
+import managers.ChatManager;
+
+import java.util.List;
+
+public class GroupChat extends Chat {
     public GroupChat(int firstUser, int secondUser, String name){
         super(firstUser, secondUser, name);
     }

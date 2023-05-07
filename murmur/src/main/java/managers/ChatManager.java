@@ -1,3 +1,7 @@
+package managers;
+import entities.Message;
+import entities.User;
+
 import java.util.*;
 public class ChatManager {
     private static DataBase dataBase = DataBase.getInstance();
@@ -171,5 +175,17 @@ public class ChatManager {
             }
         }
         return nameOfUsers;
+    }
+
+    public static Map<String, Object> getChatInfo(int id){
+        List<Map<String, Object>> chats = dataBase.get("chat");
+
+        for(Map<String, Object> chat : chats){
+            if(chat.get("id").equals(id)){
+                return chat;
+            }
+        }
+
+        return null;
     }
 }

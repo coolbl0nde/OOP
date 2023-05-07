@@ -5,6 +5,7 @@ out/
 
 ../.idea
 .idea
+.mvn
 
 ### Eclipse ###
 .apt_generated

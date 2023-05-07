@@ -1,3 +1,5 @@
+package managers;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,5 +135,17 @@ public class UserManager {
                 break;
             }
         }
+    }
+
+    public static Map<String, Object> getUserInfo(int id){
+        List<Map<String, Object>> users = dataBase.get("user");
+
+        for(Map<String, Object> user : users){
+            if(user.get("id").equals(id)){
+                return user;
+            }
+        }
+
+        return null;
     }
 }

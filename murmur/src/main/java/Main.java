@@ -1,3 +1,7 @@
+import entities.Chat;
+import entities.GroupChat;
+import entities.User;
+import managers.DataBase;
 
 public class Main {
 
@@ -13,9 +17,6 @@ public class Main {
         /*System.out.println("Меняем имя у 1 пользователя.");
         user1.setName("Lera");
         System.out.println("Новое имя: " + user1.getName());*/
-
-        //Message message = new Message("привет", user1.getId(), dataBase);
-        //System.out.println("Текст сообщения: " + message.getText() + " Дата: " + message.getDate() + " Время: " + message.getTime());
 
         Chat chat = new Chat(user1.getId(), user2.getId());
         System.out.println("Создан чат 1 и 2 пользователя");
