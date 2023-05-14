@@ -1,6 +1,6 @@
-package entities;
+package com.example.murmur.entities;
 
-import managers.ChatManager;
+import com.example.murmur.managers.ChatManager;
 
 import java.util.*;
 

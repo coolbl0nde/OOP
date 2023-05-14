@@ -1,6 +1,6 @@
-package repositories;
+package com.example.murmur.repositories;
 
-import managers.MessageManager;
+import com.example.murmur.managers.MessageManager;
 
 import java.util.Map;
 

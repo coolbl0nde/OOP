@@ -1,15 +1,18 @@
-import entities.Chat;
-import entities.GroupChat;
-import entities.User;
-import managers.DataBase;
+import com.example.murmur.entities.Chat;
+import com.example.murmur.entities.GroupChat;
+import com.example.murmur.entities.User;
+import com.example.murmur.managers.DataBase;
+import com.example.murmur.managers.UserManager;
+
+import java.sql.SQLOutput;
 
 public class Main {
 
     public static void main(String[] args) {
         DataBase dataBase = DataBase.getInstance();
 
-        User user1 = new User("Masha", "Mihalevich", "+375294575445", "coolbl0nde", "364674537");
-        User user2 = new User("Ilya", "Mihalevich", "+375295748934", "ilfkdg", "kkfjfdjglgjf");
+        User user1 = new User("Masha", "Mihalevich", "+375294575445", "coolbl0nde", "364674537", 1);
+        User user2 = new User("Ilya", "Mihalevich", "+375295748934", "ilfkdg", "kkfjfdjglgjf", 2);
 
         System.out.println("Данные первого пользователя: " + User.getName(user1.getId()) + " " + user1.getSurname() + " " + user1.getUsername() + " " + user1.getPhoneNumber());
         System.out.println("Данные второго пользователя: " + User.getName(user2.getId()) + " " + user2.getSurname());
@@ -27,7 +30,7 @@ public class Main {
         GroupChat groupChat = new GroupChat(user1.getId(), user2.getId(), "group");
         groupChat.sendMessage("пока", user2.getId());
 
-        User user3 = new User("Vlada", "Mihalevich", "+375295748949", "coolbl0nde", "364674537");
+        User user3 = new User("Vlada", "Mihalevich", "+375295748949", "coolbl0nde", "364674537", 3);
 
         System.out.println("id user1 = " + user1.getId() + " id user2 = " + user2.getId() + " id user3 = " + user3.getId());
 
@@ -46,5 +49,8 @@ public class Main {
         System.out.println("Список чатов: " + Chat.listOfChats());
         Chat.deleteChat(chat.getId());
         System.out.println("Удаляем первый чат. Новый список чатов: " + Chat.listOfChats());
+
+        System.out.println(UserManager.getUser(user1.getId()));
+
     }
 }

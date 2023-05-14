@@ -1,6 +1,6 @@
-package entities;
+package com.example.murmur.entities;
 
-import managers.MessageManager;
+import com.example.murmur.managers.MessageManager;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

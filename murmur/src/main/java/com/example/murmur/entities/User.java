@@ -1,14 +1,15 @@
-package entities;
+package com.example.murmur.entities;
 
-import managers.UserManager;
+import com.example.murmur.managers.UserManager;
 
 import java.util.Random;
 
 public class User {
     private int id;
 
-    public User(String name, String surname, String phoneNumber, String username, String password) {
-        this.id = new Random().nextInt();
+    public User(String name, String surname, String phoneNumber, String username, String password, int id) {
+        //this.id = new Random().nextInt();
+        this.id = id;
 
         UserManager.addUser(this.id, name, surname, phoneNumber, username, password);
 

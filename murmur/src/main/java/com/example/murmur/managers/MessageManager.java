@@ -1,6 +1,6 @@
-package managers;
+package com.example.murmur.managers;
 
-import entities.User;
+import com.example.murmur.entities.User;
 
 import java.util.HashMap;
 import java.util.List;

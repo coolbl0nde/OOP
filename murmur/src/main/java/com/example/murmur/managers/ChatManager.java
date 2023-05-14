@@ -1,6 +1,6 @@
-package managers;
-import entities.Message;
-import entities.User;
+package com.example.murmur.managers;
+import com.example.murmur.entities.Message;
+import com.example.murmur.entities.User;
 
 import java.util.*;
 public class ChatManager {

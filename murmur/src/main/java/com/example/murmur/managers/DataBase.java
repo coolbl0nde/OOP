@@ -1,4 +1,4 @@
-package managers;
+package com.example.murmur.managers;
 
 import java.util.*;
 

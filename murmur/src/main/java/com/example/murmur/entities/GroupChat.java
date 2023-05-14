@@ -1,7 +1,7 @@
-package entities;
+package com.example.murmur.entities;
 
-import entities.Chat;
-import managers.ChatManager;
+import com.example.murmur.entities.Chat;
+import com.example.murmur.managers.ChatManager;
 
 import java.util.List;
 
