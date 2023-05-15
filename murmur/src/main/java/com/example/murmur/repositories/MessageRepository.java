@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class MessageRepository {
 
-    public Map<String, Object> getMessageInfo(int id){
+    public Map<String, Object> getMessageInfo(String id){
         return MessageManager.getMessageInfo(id);
     }
 }

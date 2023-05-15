@@ -6,29 +6,29 @@ import java.util.*;
 
 public class Chat {
 
-    protected final int id;
+    protected final String id;
 
-    public Chat(int firstUser, int secondUser){
-        this.id = new Random().nextInt();
+    public Chat(String firstUser, String secondUser){
+        this.id = String.valueOf(new Random().nextInt());
 
         ChatManager.addChat(this.id, firstUser, secondUser);
     }
 
-    public Chat(int firstUser, int secondUser, String name){
-        this.id = new Random().nextInt();
+    public Chat(String firstUser, String secondUser, String name){
+        this.id = String.valueOf(new Random().nextInt());
 
         ChatManager.addGroupChat(id, firstUser, secondUser, name);
     }
 
-    public int getId(){
+    public String getId(){
         return this.id;
     }
 
-    public void sendMessage(String text, int senderId){
+    public void sendMessage(String text, String senderId){
         ChatManager.sendMessage(text, senderId, this.id);
     }
 
-    public void deleteMessage(int messageId){
+    public void deleteMessage(String messageId){
         ChatManager.deleteMessage(messageId, this.id);
     }
 
@@ -36,11 +36,11 @@ public class Chat {
         return ChatManager.messagesList(this.id);
     }
 
-    public static void deleteChat(int chatId){
+    public static void deleteChat(String chatId){
         ChatManager.deleteChat(chatId);
     }
 
-    public static List<Integer> listOfChats(){
+    public static List<String> listOfChats(){
         return ChatManager.listOfChats();
     }
 

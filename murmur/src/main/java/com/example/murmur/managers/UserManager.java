@@ -1,5 +1,6 @@
 package com.example.murmur.managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,11 +8,11 @@ import java.util.Map;
 public class UserManager {
     private static DataBase dataBase = DataBase.getInstance();
 
-    public UserManager() {
-    }
 
-    public static void addUser(int id, String name, String surname, String phoneNumber, String username, String password){
+    public static String addUser(String id, String name, String surname, String phoneNumber, String username, String password){
         Map<String, Object> userData = new HashMap<>();
+
+        List<String> contacts = new ArrayList<>();
 
         userData.put("id", id);
         userData.put("name", name);
@@ -19,10 +20,13 @@ public class UserManager {
         userData.put("username", username);
         userData.put("phoneNumber", phoneNumber);
         userData.put("password", password);
+        userData.put("contacts", contacts);
 
         dataBase.insert(userData, "user");
+
+        return id;
     }
-    public static String getName(int id){
+    public static String getName(String id){
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -34,7 +38,7 @@ public class UserManager {
         return null;
     }
 
-    public static void setName(String name, int id) {
+    public static void setName(String name, String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -45,7 +49,7 @@ public class UserManager {
         }
     }
 
-    public static String getSurname(int id) {
+    public static String getSurname(String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -57,7 +61,7 @@ public class UserManager {
         return null;
     }
 
-    public static void setSurname(String surname, int id) {
+    public static void setSurname(String surname, String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -68,7 +72,7 @@ public class UserManager {
         }
     }
 
-    public static String getPhoneNumber(int id) {
+    public static String getPhoneNumber(String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -80,7 +84,7 @@ public class UserManager {
         return null;
     }
 
-    public static void setPhoneNumber(String phoneNumber, int id) {
+    public static void setPhoneNumber(String phoneNumber, String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -91,7 +95,7 @@ public class UserManager {
         }
     }
 
-    public static String getUsername(int id) {
+    public static String getUsername(String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -103,7 +107,7 @@ public class UserManager {
         return null;
     }
 
-    public static void setUsername(String username, int id) {
+    public static void setUsername(String username, String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -114,7 +118,7 @@ public class UserManager {
         }
     }
 
-    public static String getPassword(int id) {
+    public static String getPassword(String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -126,7 +130,7 @@ public class UserManager {
         return null;
     }
 
-    public static void setPassword(String password, int id) {
+    public static void setPassword(String password, String id) {
         List<Map<String, Object>> userList = dataBase.get("user");
 
         for (Map<String, Object> user : userList) {
@@ -137,13 +141,46 @@ public class UserManager {
         }
     }
 
-    public static Map<String, Object> getUser(int id){
+    public static Map<String, Object> getUser(String id){
         List<Map<String, Object>> users = dataBase.get("user");
 
         for(Map<String, Object> user : users){
             if(user.get("id").equals(id)){
-                System.out.println(user);
                 return user;
+            }
+        }
+
+        return null;
+    }
+
+    public static List<Integer> getContacts(String id){
+        List<Map<String, Object>> users = dataBase.get("user");
+
+        for(Map<String, Object> user : users){
+            if (user.get("id").equals(id)) {
+                return (List<Integer>) user.get("contacts");
+            }
+        }
+
+        return null;
+    }
+
+    public static void setContacts(String idContact, String id){
+        List<Map<String, Object>> users = dataBase.get("user");
+
+        for(Map<String, Object> user : users){
+            if (user.get("id").equals(id)) {
+                ((List<String>)user.get("contacts")).add(idContact);
+            }
+        }
+    }
+
+    public static String findUser(String phoneNumber){
+        List<Map<String, Object>> users = dataBase.get("user");
+
+        for(Map<String, Object> user : users){
+            if(user.get("phoneNumber").equals(phoneNumber)){
+                return (String) user.get("id");
             }
         }
 

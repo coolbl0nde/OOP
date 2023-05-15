@@ -2,24 +2,32 @@ package com.example.murmur.entities;
 
 import com.example.murmur.managers.UserManager;
 
+import java.util.List;
 import java.util.Random;
 
 public class User {
-    private int id;
+    private String id;
 
-    public User(String name, String surname, String phoneNumber, String username, String password, int id) {
-        //this.id = new Random().nextInt();
-        this.id = id;
+    public User(String name, String surname, String phoneNumber, String username, String password) {
+        this.id = String.valueOf(new Random().nextInt());
 
         UserManager.addUser(this.id, name, surname, phoneNumber, username, password);
 
     }
 
-    public int getId(){
+    public static String createUser(String name, String surname, String phoneNumber, String username, String password) {
+        String id = String.valueOf(new Random().nextInt());
+
+        UserManager.addUser(id, name, surname, phoneNumber, username, password);
+
+        return id;
+    }
+
+    public String getId(){
         return this.id;
     }
 
-    public static String getName(int id){
+    public static String getName(String id){
         return UserManager.getName(id);
     }
 
@@ -58,4 +66,8 @@ public class User {
     public void setPassword(String password) {
         UserManager.setPassword(password, this.id);
     }
+
+    public List<Integer> getContacts(){ return UserManager.getContacts(this.id); }
+
+    public void setContacts(String idContact){ UserManager.setContacts(idContact, this.id); }
 }

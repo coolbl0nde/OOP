@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Message {
-    private final int id;
+    private final String id;
 
-    public Message(String text, int senderId){
-        this.id = new Random().nextInt();
+    public Message(String text, String senderId){
+        this.id = String.valueOf(new Random().nextInt());
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -20,15 +20,15 @@ public class Message {
         MessageManager.addMessage(this.id, text, date, time, senderId);
     }
 
-    public int getId(){
+    public String getId(){
         return this.id;
     }
 
-    public static String getSender(int id){
+    public static String getSender(String id){
         return MessageManager.getSender(id);
     }
 
-    public static String getText(int id){
+    public static String getText(String id){
         return MessageManager.getText(id);
     }
 

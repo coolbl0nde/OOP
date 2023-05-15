@@ -11,26 +11,26 @@ import java.util.Map;
 
 public class ChatRepository {
 
-    /*public Map<String, Object> getChatInfo(int id){
+    public Map<String, Object> getChatInfo(String id){
         Map<String, Object> chat = ChatManager.getChatInfo(id);
-        List<Integer> users = (List<Integer>) chat.get("users");
+        List<String> users = (List<String>) chat.get("users");
         List<Map<String, Object>> userObjects = new ArrayList<>();
 
-        for(Integer user : users){
+        for(String user : users){
             userObjects.add(UserManager.getUser(user));
         }
 
         chat.put("users", userObjects);
 
-        List<Integer> messages = (List<Integer>) chat.get("messages");
+        List<String> messages = (List<String>) chat.get("messages");
         List<Map<String, Object>> messageObjects = new ArrayList<>();
 
-        for(Integer message : messages){
+        for(String message : messages){
             messageObjects.add(MessageManager.getMessageInfo(message));
         }
 
         chat.put("messages", messageObjects);
 
         return chat;
-    }*/
+    }
 }

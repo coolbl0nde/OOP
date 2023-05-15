@@ -1,20 +1,19 @@
 package com.example.murmur.entities;
 
-import com.example.murmur.entities.Chat;
 import com.example.murmur.managers.ChatManager;
 
 import java.util.List;
 
 public class GroupChat extends Chat {
-    public GroupChat(int firstUser, int secondUser, String name){
+    public GroupChat(String firstUser, String secondUser, String name){
         super(firstUser, secondUser, name);
     }
 
-    public void addUser(int userId){
+    public void addUser(String userId){
         ChatManager.addUser(userId, this.id);
     }
 
-    public void deleteUser(int userId){
+    public void deleteUser(String userId){
         ChatManager.deleteUser(userId, this.id);
     }
 
