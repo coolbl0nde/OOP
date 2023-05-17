@@ -10,6 +10,7 @@ public class UserManager {
 
 
     public static String addUser(String id, String name, String surname, String phoneNumber, String username, String password){
+
         Map<String, Object> userData = new HashMap<>();
 
         List<String> contacts = new ArrayList<>();

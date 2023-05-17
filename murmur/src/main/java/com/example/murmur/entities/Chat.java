@@ -20,6 +20,18 @@ public class Chat {
         ChatManager.addGroupChat(id, firstUser, secondUser, name);
     }
 
+    public static String createChat(String firstUser, String secondUser){
+        String id = String.valueOf(new Random().nextInt());
+
+        ChatManager.addChat(id, firstUser, secondUser);
+
+        return id;
+    }
+
+    public static String createGroupChat(){
+        return null;
+    }
+
     public String getId(){
         return this.id;
     }
@@ -38,10 +50,6 @@ public class Chat {
 
     public static void deleteChat(String chatId){
         ChatManager.deleteChat(chatId);
-    }
-
-    public static List<String> listOfChats(){
-        return ChatManager.listOfChats();
     }
 
 }

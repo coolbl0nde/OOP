@@ -12,7 +12,7 @@ import java.util.Map;
 public class AuthController {
 
     @PostMapping("/api/register")
-    public ResponseEntity<String> register(@RequestBody Map<String,String> user){
+    public ResponseEntity<String> register(@RequestBody Map<String, String> user){
         //check
 
         if (user.isEmpty()) {
@@ -20,6 +20,15 @@ public class AuthController {
         } else {
             return (ResponseEntity<String>) ResponseEntity.ok(User.createUser(user.get("name"), user.get("surname"),
                     user.get("phoneNumber"), user.get("username"), user.get("password")));
+        }
+    }
+
+    @PostMapping("api/auth")
+    public ResponseEntity<String> auth(@RequestBody Map<String, Object> user){
+        if(user.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok("success");
         }
     }
 

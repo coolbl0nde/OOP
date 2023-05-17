@@ -11,8 +11,14 @@ import java.util.Map;
 public class UserController {
 
     @GetMapping("/api/user")
-    public Map<String, Object> getUser(@RequestParam String id){
-        return UserManager.getUser(id);
+    public ResponseEntity<Map<String, Object>> getUser(@RequestParam String id){
+        Map<String, Object> user = UserManager.getUser(id);
+
+        if(user.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(user);
+        }
     }
 
     @PostMapping("/api/contact")
@@ -21,7 +27,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }else{
             String idContact = UserManager.findUser((String) contact.get("phoneNumber"));
-            System.out.println(idContact);
+
             if (!idContact.isEmpty()) {
                 UserManager.setContacts(idContact, (String) contact.get("id"));
 
@@ -36,8 +42,3 @@ public class UserController {
 
 
 }
-
-//-1801874612
-
-
-//-1119237505 +375295835934

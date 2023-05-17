@@ -1,3 +1,5 @@
+package com.example.murmur;
+
 import com.example.murmur.entities.Chat;
 import com.example.murmur.entities.GroupChat;
 import com.example.murmur.entities.User;
@@ -45,10 +47,6 @@ public class Main {
         groupChat.sendMessage("привет всем", user2.getId());
         groupChat.sendMessage("приветики", user3.getId());
         System.out.println("Сообщения группового чата: " + groupChat.messagesList());
-
-        System.out.println("Список чатов: " + Chat.listOfChats());
-        Chat.deleteChat(chat.getId());
-        System.out.println("Удаляем первый чат. Новый список чатов: " + Chat.listOfChats());
 
         System.out.println(UserManager.getUser(user1.getId()));
 

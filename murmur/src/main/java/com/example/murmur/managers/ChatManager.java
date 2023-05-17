@@ -40,19 +40,23 @@ public class ChatManager {
         dataBase.insert(chatData, "chat");
     }
 
-    public static void sendMessage(String text, String senderId, String chatId){
+    public static String sendMessage(String text, String senderId, String chatId){
         Message message = new Message(text, senderId);
         List<Map<String, Object>> chats = dataBase.get("chat");
 
         for(Map<String, Object> chat : chats){
             if (chat.get("id").equals(chatId)) {
                 ((List<String>)chat.get("messages")).add(message.getId());
+                return message.getId();
             }
         }
+
+        return null;
     }
 
     public static void deleteMessage(String messageId, String chatId){
         List<Map<String, Object>> chats = dataBase.get("chat");
+        List<Map<String, Object>> messages = dataBase.get("message");
 
         for(Map<String, Object> chat : chats){
             if (chat.get("id").equals(chatId)) {
@@ -64,8 +68,6 @@ public class ChatManager {
                 break;
             }
         }
-
-        List<Map<String, Object>> messages = dataBase.get("message");
 
         for(Map<String, Object> message : messages){
             if (message.get("id").equals(chatId)) {
@@ -93,25 +95,27 @@ public class ChatManager {
         return textOfMessages;
     }
 
-    public static void deleteChat(String chatId){
+    public static void deleteChat(String chatId) {
         List<Map<String, Object>> chats = dataBase.get("chat");
+        List<Map<String, Object>> messages = dataBase.get("message");
 
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(chatId)){
+        for (Map<String, Object> chat : chats) {
+            if (chat.get("id").equals(chatId)) {
+                List<String> idMessages = (List<String>) chat.get("messages");
+
+                for(String idMessage : idMessages){
+                    for(Map<String, Object> message : messages){
+                        if(message.get("id").equals(idMessage)){
+                            messages.remove(message);
+                            break;
+                        }
+                    }
+                }
+
                 chats.remove(chat);
                 break;
             }
         }
-    }
-    public static List<String> listOfChats(){
-        List<Map<String, Object>> chats = dataBase.get("chat");
-        List<String> chatsId = new ArrayList<>();
-
-        for(Map<String, Object> chat : chats){
-            chatsId.add((String) chat.get("id"));
-        }
-
-        return chatsId;
     }
 
     public static void addUser(String userId, String groupChatId){
