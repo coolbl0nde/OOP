@@ -5,6 +5,8 @@ import com.example.murmur.managers.ChatManager;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,7 +29,7 @@ public class ChatController {
         if(chat.isEmpty()){
             return ResponseEntity.notFound().build();
         }else {
-            return ResponseEntity.ok(Chat.createChat((String) chat.get("idFirst"), (String) chat.get("idSecond")));
+            return ResponseEntity.ok(Chat.createChat((List<String>) chat.get("users")));
         }
     }
 

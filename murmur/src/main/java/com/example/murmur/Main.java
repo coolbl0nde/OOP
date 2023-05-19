@@ -11,7 +11,7 @@ import java.sql.SQLOutput;
 public class Main {
 
     public static void main(String[] args) {
-        DataBase dataBase = DataBase.getInstance();
+        /*DataBase dataBase = DataBase.getInstance();
 
         User user1 = new User("Masha", "Mihalevich", "+375294575445", "coolbl0nde", "364674537");
         User user2 = new User("Ilya", "Mihalevich", "+375295748934", "ilfkdg", "kkfjfdjglgjf");
@@ -21,7 +21,7 @@ public class Main {
 
         /*System.out.println("Меняем имя у 1 пользователя.");
         user1.setName("Lera");
-        System.out.println("Новое имя: " + user1.getName());*/
+        System.out.println("Новое имя: " + user1.getName());
 
         Chat chat = new Chat(user1.getId(), user2.getId());
         System.out.println("Создан чат 1 и 2 пользователя");
@@ -48,7 +48,7 @@ public class Main {
         groupChat.sendMessage("приветики", user3.getId());
         System.out.println("Сообщения группового чата: " + groupChat.messagesList());
 
-        System.out.println(UserManager.getUser(user1.getId()));
+        System.out.println(UserManager.getUser(user1.getId()));*/
 
     }
 }

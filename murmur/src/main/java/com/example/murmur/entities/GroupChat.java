@@ -5,8 +5,8 @@ import com.example.murmur.managers.ChatManager;
 import java.util.List;
 
 public class GroupChat extends Chat {
-    public GroupChat(String firstUser, String secondUser, String name){
-        super(firstUser, secondUser, name);
+    public GroupChat(List<String> users, String name){
+        super(users, name);
     }
 
     public void addUser(String userId){

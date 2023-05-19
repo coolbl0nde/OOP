@@ -9,31 +9,23 @@ public class ChatManager {
     public ChatManager(){
     }
 
-    public static void addChat(String id, String firstUser, String secondUser){
-        List<String> idUsers = new ArrayList<>();
-        idUsers.add(firstUser);
-        idUsers.add(secondUser);
-
+    public static void addChat(String id, List<String> users){
         List<String> idMessages = new ArrayList<>();
 
         Map<String, Object> chatData = new HashMap<>();
         chatData.put("id", id);
-        chatData.put("users", idUsers);
+        chatData.put("users", users);
         chatData.put("messages", idMessages);
 
         dataBase.insert(chatData, "chat");
     }
 
-    public static void addGroupChat(String id, String firstUser, String secondUser, String name){
-        List<String> idUsers = new ArrayList<>();
-        idUsers.add(firstUser);
-        idUsers.add(secondUser);
-
+    public static void addGroupChat(String id, List<String> users, String name){
         List<String> idMessages = new ArrayList<>();
 
         Map<String, Object> chatData = new HashMap<>();
         chatData.put("id", id);
-        chatData.put("users", idUsers);
+        chatData.put("users", users);
         chatData.put("messages", idMessages);
         chatData.put("name", name);
 

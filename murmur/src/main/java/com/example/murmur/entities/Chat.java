@@ -8,22 +8,22 @@ public class Chat {
 
     protected final String id;
 
-    public Chat(String firstUser, String secondUser){
+    public Chat(List<String> users){
         this.id = String.valueOf(new Random().nextInt());
 
-        ChatManager.addChat(this.id, firstUser, secondUser);
+        ChatManager.addChat(this.id, users);
     }
 
-    public Chat(String firstUser, String secondUser, String name){
+    public Chat(List<String> users, String name){
         this.id = String.valueOf(new Random().nextInt());
 
-        ChatManager.addGroupChat(id, firstUser, secondUser, name);
+        ChatManager.addGroupChat(id, users, name);
     }
 
-    public static String createChat(String firstUser, String secondUser){
+    public static String createChat(List<String> users){
         String id = String.valueOf(new Random().nextInt());
 
-        ChatManager.addChat(id, firstUser, secondUser);
+        ChatManager.addChat(id, users);
 
         return id;
     }
