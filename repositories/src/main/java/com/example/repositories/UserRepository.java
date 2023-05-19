@@ -3,6 +3,8 @@ package com.example.repositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class UserRepository {
@@ -15,5 +17,18 @@ public class UserRepository {
         ResponseEntity<Map> responseUser = restTemplate.getForEntity(urlUser, Map.class, userId);
 
         return responseUser.getBody();
+    }
+
+    private static Map<String, Object> toUserDTO(Map<String, Object> user){
+        List<String> contacts = (List<String>) user.get("contacts");
+        List<Map<String, Object>> contactsInfo = new ArrayList<>();
+
+        for (String contact : contacts){
+            contactsInfo.add(UserRepository.getUserInfo(contact));
+        }
+
+        user.put("contacts", contactsInfo);
+
+        return user;
     }
 }

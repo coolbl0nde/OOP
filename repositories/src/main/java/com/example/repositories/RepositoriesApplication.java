@@ -11,7 +11,7 @@ public class RepositoriesApplication {
 
 		System.out.println("ChatInfo: " + ChatRepository.getChatInfo("-1524202938"));
 		System.out.println("MessageInfo" + MessageRepository.getMessageInfo("-1226934877"));
-		System.out.println("Chat Message: " + MessageRepository.chatMessages("-1524202938"));
+		System.out.println("Chat Message: " + ChatRepository.chatMessages("-1524202938"));
 
 		System.out.println("User: " + UserRepository.getUserInfo("-470048079"));
 	}

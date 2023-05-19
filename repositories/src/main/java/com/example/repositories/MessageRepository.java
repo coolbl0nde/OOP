@@ -14,13 +14,16 @@ public class MessageRepository {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> responseMessage = restTemplate.getForEntity(urlMessage, Map.class, messageId);
 
-        return responseMessage.getBody();
+        return MessageRepository.toMessageDTO(responseMessage.getBody());
     }
 
-    public static List<Map<String, Object>> chatMessages(String chatId){
+    private static Map<String, Object> toMessageDTO(Map<String, Object> message){
 
-        Map<String, Object> chat = ChatRepository.getChatInfo(chatId);
+        String senderId = (String) message.get("sender");
+        Map<String, Object> sender = UserRepository.getUserInfo(senderId);
 
-        return (List<Map<String, Object>>)chat.get("messages");
+        message.put("sender", sender);
+
+        return message;
     }
 }

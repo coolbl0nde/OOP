@@ -20,6 +20,11 @@ public class ChatRepository {
 
         Map<String, Object> chat = responseChat.getBody();
 
+        return ChatRepository.toChatDTO(chat);
+    }
+
+    private static Map<String, Object> toChatDTO(Map<String, Object> chat) {
+
         List<String> users = (List<String>) chat.get("users");
         List<Map<String, Object>> userObjects = new ArrayList<>();
 
@@ -32,12 +37,19 @@ public class ChatRepository {
         List<String> messages = (List<String>) chat.get("messages");
         List<Map<String, Object>> messageObjects = new ArrayList<>();
 
-       for(String message : messages){
+        for(String message : messages){
             messageObjects.add(MessageRepository.getMessageInfo(message));
         }
 
         chat.put("messages", messageObjects);
 
         return chat;
+    }
+
+    public static List<Map<String, Object>> chatMessages(String chatId){
+
+        Map<String, Object> chat = ChatRepository.getChatInfo(chatId);
+
+        return (List<Map<String, Object>>)chat.get("messages");
     }
 }
