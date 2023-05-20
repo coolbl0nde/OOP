@@ -6,10 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Message {
-    private final String id;
 
-    public Message(String text, String senderId){
-        this.id = String.valueOf(new Random().nextInt());
+    public static String createMessage(String text, String senderId) {
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -17,11 +15,9 @@ public class Message {
         String date = dateFormat.format(calendar.getTime());
         String time = timeFormat.format(calendar.getTime());
 
-        MessageManager.addMessage(this.id, text, date, time, senderId);
-    }
+        String id = MessageManager.addMessage(text, date, time, senderId);
 
-    public String getId(){
-        return this.id;
+        return id;
     }
 
     public static String getSender(String id){
@@ -32,15 +28,16 @@ public class Message {
         return MessageManager.getText(id);
     }
 
-    public void setText(String text){
-        MessageManager.setText(text, this.id);
+    public void setText(String text, String id){
+        MessageManager.setText(text, id);
     }
 
-    public String getDate(){
-        return MessageManager.getDate(this.id);
+    public String getDate(String id){
+        return MessageManager.getDate(id);
     }
 
-    public String getTime(){
-        return MessageManager.getTime(this.id);
+    public String getTime(String id){
+        return MessageManager.getTime(id);
     }
+
 }

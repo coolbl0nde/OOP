@@ -5,27 +5,24 @@ import com.example.murmur.managers.ChatManager;
 import java.util.List;
 
 public class GroupChat extends Chat {
-    public GroupChat(List<String> users, String name){
-        super(users, name);
+
+    public void addUser(String userId, String id){
+        ChatManager.addUser(userId, id);
     }
 
-    public void addUser(String userId){
-        ChatManager.addUser(userId, this.id);
+    public void deleteUser(String userId, String id){
+        ChatManager.deleteUser(userId, id);
     }
 
-    public void deleteUser(String userId){
-        ChatManager.deleteUser(userId, this.id);
+    public String getGroupName(String id){
+        return ChatManager.getGroupName(id);
     }
 
-    public String getGroupName(){
-        return ChatManager.getGroupName(this.id);
+    public void setGroupName(String name, String id){
+        ChatManager.setGroupName(name, id);
     }
 
-    public void setGroupName(String name){
-        ChatManager.setGroupName(name, this.id);
-    }
-
-    public List<String> getNameOfUsers(){
-        return ChatManager.getNameOfUsers(this.id);
+    public List<String> getNameOfUsers(String id){
+        return ChatManager.getNameOfUsers(id);
     }
 }

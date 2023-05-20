@@ -9,179 +9,104 @@ public class ChatManager {
     public ChatManager(){
     }
 
-    public static void addChat(String id, List<String> users){
+    public static String addChat(List<String> users){
         List<String> idMessages = new ArrayList<>();
-
         Map<String, Object> chatData = new HashMap<>();
-        chatData.put("id", id);
+
         chatData.put("users", users);
         chatData.put("messages", idMessages);
 
-        dataBase.insert(chatData, "chat");
+        String id = dataBase.insert(chatData, "chat");
+
+        return id;
     }
 
-    public static void addGroupChat(String id, List<String> users, String name){
+    public static String addGroupChat(List<String> users, String name){
         List<String> idMessages = new ArrayList<>();
-
         Map<String, Object> chatData = new HashMap<>();
-        chatData.put("id", id);
+
         chatData.put("users", users);
         chatData.put("messages", idMessages);
         chatData.put("name", name);
 
-        dataBase.insert(chatData, "chat");
+        String id = dataBase.insert(chatData, "chat");
+
+        return id;
     }
 
     public static String sendMessage(String text, String senderId, String chatId){
-        Message message = new Message(text, senderId);
-        List<Map<String, Object>> chats = dataBase.get("chat");
+        String messageId = Message.createMessage(text, senderId);
+        List<String> messages = (List<String>) dataBase.getFieldValue(chatId, "messages", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if (chat.get("id").equals(chatId)) {
-                ((List<String>)chat.get("messages")).add(message.getId());
-                return message.getId();
-            }
-        }
+        messages.add(messageId);
 
-        return null;
+        dataBase.update(chatId, "messages", messages, "chat");
+
+        return messageId;
     }
 
     public static void deleteMessage(String messageId, String chatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
-        List<Map<String, Object>> messages = dataBase.get("message");
+        List<String> messages = (List<String>) dataBase.getFieldValue(chatId, "messages", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if (chat.get("id").equals(chatId)) {
-                List<String> updatedMessages = (List<String>)chat.get("messages");
+        messages.remove(messageId);
 
-                if(updatedMessages.contains(messageId)) {
-                    updatedMessages.remove(String.valueOf(messageId));
-                }
-                break;
-            }
-        }
-
-        for(Map<String, Object> message : messages){
-            if (message.get("id").equals(chatId)) {
-                messages.remove(message);
-
-                break;
-            }
-        }
+        dataBase.update(chatId, "messages", messages, "chat");
+        dataBase.delete(messageId, "message");
     }
 
-    public static Map<String, String > messagesList(String chatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
-        Map<String, String> textOfMessages = new HashMap<>();
+    public static List<String> messagesList(String chatId){
+        //sender - text
+        List<String> messages = (List<String>) dataBase.getFieldValue(chatId, "messages", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if (chat.get("id").equals(chatId)) {
-                List<String> messages = (List<String>) chat.get("messages");
-
-                for(String messageId : messages){
-                    textOfMessages.put(Message.getSender(messageId), Message.getText(messageId));
-                }
-            }
-        }
-
-        return textOfMessages;
+        return messages;
     }
 
     public static void deleteChat(String chatId) {
-        List<Map<String, Object>> chats = dataBase.get("chat");
-        List<Map<String, Object>> messages = dataBase.get("message");
+        List<String> messages = (List<String>) dataBase.getFieldValue(chatId, "messages", "chat");
 
-        for (Map<String, Object> chat : chats) {
-            if (chat.get("id").equals(chatId)) {
-                List<String> idMessages = (List<String>) chat.get("messages");
+        dataBase.delete(chatId, "chat");
 
-                for(String idMessage : idMessages){
-                    for(Map<String, Object> message : messages){
-                        if(message.get("id").equals(idMessage)){
-                            messages.remove(message);
-                            break;
-                        }
-                    }
-                }
-
-                chats.remove(chat);
-                break;
-            }
+        for(String message : messages){
+            dataBase.delete(message, "message");
         }
     }
 
     public static void addUser(String userId, String groupChatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
+        List<String> users = (List<String>) dataBase.getFieldValue(groupChatId, "users", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(groupChatId)){
-                ((List<String>)chat.get("users")).add(userId);
-            }
-        }
+        users.add(userId);
+
+        dataBase.update(groupChatId, "users", users, "chat");
     }
 
     public static void deleteUser(String userId, String groupChatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
+        List<String> users = (List<String>) dataBase.getFieldValue(groupChatId, "users", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(groupChatId)){
-                List<Integer> updatedUsers = (List<Integer>) chat.get("users");
-                if(updatedUsers.contains(userId)) {
-                    updatedUsers.remove(Integer.valueOf(userId));
-                }
-                break;
-            }
-        }
+        users.remove(userId);
+
+        dataBase.update(groupChatId, "users", users, "chat");
     }
 
     public static String getGroupName(String groupChatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
+        String name = (String) dataBase.getFieldValue(groupChatId, "name", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(groupChatId)){
-                return (String) chat.get("name");
-            }
-        }
-
-        return null;
+        return name;
     }
 
     public static void setGroupName(String name, String groupChatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
-
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(groupChatId)){
-                chat.put("name", name);
-                break;
-            }
-        }
+        dataBase.update(groupChatId, "name", name,"chat");
     }
 
     public static List<String> getNameOfUsers(String groupChatId){
-        List<Map<String, Object>> chats = dataBase.get("chat");
-        List<String> nameOfUsers = new ArrayList<>();
+        //name of users
+        List<String> users = (List<String>) dataBase.getFieldValue(groupChatId, "users", "chat");
 
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(groupChatId)){
-                List<String> users = (List<String>) chat.get("users");
-
-                for(String userId : users){
-                    nameOfUsers.add(User.getName(userId));
-                }
-            }
-        }
-        return nameOfUsers;
+        return users;
     }
 
     public static Map<String, Object> getChatInfo(String id){
-        List<Map<String, Object>> chats = dataBase.get("chat");
+        Map<String, Object> chat = dataBase.get(id,"chat");
 
-        for(Map<String, Object> chat : chats){
-            if(chat.get("id").equals(id)){
-                return chat;
-            }
-        }
-
-        return null;
+        return chat;
     }
 }

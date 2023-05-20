@@ -9,13 +9,12 @@ public class UserManager {
     private static DataBase dataBase = DataBase.getInstance();
 
 
-    public static String addUser(String id, String name, String surname, String phoneNumber, String username, String password){
+    public static String addUser(String name, String surname, String phoneNumber, String username, String password){
 
         Map<String, Object> userData = new HashMap<>();
 
         List<String> contacts = new ArrayList<>();
 
-        userData.put("id", id);
         userData.put("name", name);
         userData.put("surname", surname);
         userData.put("username", username);
@@ -23,168 +22,83 @@ public class UserManager {
         userData.put("password", password);
         userData.put("contacts", contacts);
 
-        dataBase.insert(userData, "user");
+        String id = dataBase.insert(userData, "user");
 
         return id;
     }
     public static String getName(String id){
-        List<Map<String, Object>> userList = dataBase.get("user");
+        String name = (String) dataBase.getFieldValue(id, "name", "user");
 
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                return (String)user.get("name");
-            }
-        }
-
-        return null;
+        return name;
     }
 
     public static void setName(String name, String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                user.put("name", name);
-                break;
-            }
-        }
+        dataBase.update(id, "name", name, "user");
     }
 
     public static String getSurname(String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
+        String surname = (String) dataBase.getFieldValue(id, "surname", "user");
 
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                return (String)user.get("surname");
-            }
-        }
-
-        return null;
+        return surname;
     }
 
     public static void setSurname(String surname, String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                user.put("surname", surname);
-                break;
-            }
-        }
+        dataBase.update(id, "surname", surname, "user");
     }
 
     public static String getPhoneNumber(String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
+        String phoneNumber = (String) dataBase.getFieldValue(id, "phoneNumber", "user");
 
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                return (String)user.get("phoneNumber");
-            }
-        }
-
-        return null;
+        return phoneNumber;
     }
 
     public static void setPhoneNumber(String phoneNumber, String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                user.put("phoneNumber", phoneNumber);
-                break;
-            }
-        }
+        dataBase.update(id, "phoneNumber", phoneNumber, "user");
     }
 
     public static String getUsername(String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
+        String name = (String) dataBase.getFieldValue(id, "username", "user");
 
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                return (String)user.get("username");
-            }
-        }
-
-        return null;
+        return name;
     }
 
     public static void setUsername(String username, String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                user.put("username", username);
-                break;
-            }
-        }
+        dataBase.update(id, "username", username, "user");
     }
 
     public static String getPassword(String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
+        String name = (String) dataBase.getFieldValue(id, "password", "user");
 
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                return (String)user.get("password");
-            }
-        }
-
-        return null;
+        return name;
     }
 
     public static void setPassword(String password, String id) {
-        List<Map<String, Object>> userList = dataBase.get("user");
-
-        for (Map<String, Object> user : userList) {
-            if (user.get("id").equals(id)) {
-                user.put("password", password);
-                break;
-            }
-        }
+        dataBase.update(id, "password", password, "user");
     }
 
     public static Map<String, Object> getUser(String id){
-        List<Map<String, Object>> users = dataBase.get("user");
+        Map<String, Object> user = dataBase.get(id, "user");
 
-        for(Map<String, Object> user : users){
-            if(user.get("id").equals(id)){
-                return user;
-            }
-        }
-
-        return null;
+        return user;
     }
 
-    public static List<Integer> getContacts(String id){
-        List<Map<String, Object>> users = dataBase.get("user");
+    public static List<String> getContacts(String id){
+        List<String> contacts = (List<String>) dataBase.getFieldValue(id,"contacts", "user");
 
-        for(Map<String, Object> user : users){
-            if (user.get("id").equals(id)) {
-                return (List<Integer>) user.get("contacts");
-            }
-        }
-
-        return null;
+        return contacts;
     }
 
     public static void setContacts(String idContact, String id){
-        List<Map<String, Object>> users = dataBase.get("user");
+        List<String> contacts = (List<String>) dataBase.getFieldValue(id,"contacts", "user");
 
-        for(Map<String, Object> user : users){
-            if (user.get("id").equals(id)) {
-                ((List<String>)user.get("contacts")).add(idContact);
-            }
-        }
+        contacts.add(idContact);
+
+        dataBase.update(id, "contacts", contacts, "user");
     }
 
-    public static String findUser(String phoneNumber){
-        List<Map<String, Object>> users = dataBase.get("user");
+    public static Map<String, Object> findUser(String phoneNumber){
+        Map<String, Object> id = dataBase.getByFieldValue("phoneNumber", phoneNumber, "user");
 
-        for(Map<String, Object> user : users){
-            if(user.get("phoneNumber").equals(phoneNumber)){
-                return (String) user.get("id");
-            }
-        }
-
-        return null;
+        return id;
     }
 }

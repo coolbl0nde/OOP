@@ -6,50 +6,32 @@ import java.util.*;
 
 public class Chat {
 
-    protected final String id;
-
-    public Chat(List<String> users){
-        this.id = String.valueOf(new Random().nextInt());
-
-        ChatManager.addChat(this.id, users);
-    }
-
-    public Chat(List<String> users, String name){
-        this.id = String.valueOf(new Random().nextInt());
-
-        ChatManager.addGroupChat(id, users, name);
-    }
-
     public static String createChat(List<String> users){
-        String id = String.valueOf(new Random().nextInt());
-
-        ChatManager.addChat(id, users);
+        String id = ChatManager.addChat(users);
 
         return id;
     }
 
-    public static String createGroupChat(){
-        return null;
+    public static String createGroupChat(List<String> users, String name){
+        String id = ChatManager.addGroupChat(users, name);
+
+        return id;
     }
 
-    public String getId(){
-        return this.id;
+    public void sendMessage(String text, String senderId, String id){
+        ChatManager.sendMessage(text, senderId, id);
     }
 
-    public void sendMessage(String text, String senderId){
-        ChatManager.sendMessage(text, senderId, this.id);
+    public void deleteMessage(String messageId, String id){
+        ChatManager.deleteMessage(messageId, id);
     }
 
-    public void deleteMessage(String messageId){
-        ChatManager.deleteMessage(messageId, this.id);
+    public List<String> messagesList(String id){
+        return ChatManager.messagesList(id);
     }
 
-    public Map<String, String > messagesList(){
-        return ChatManager.messagesList(this.id);
-    }
-
-    public static void deleteChat(String chatId){
-        ChatManager.deleteChat(chatId);
+    public static void deleteChat(String id){
+        ChatManager.deleteChat(id);
     }
 
 }

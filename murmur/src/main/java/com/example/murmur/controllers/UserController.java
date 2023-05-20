@@ -26,12 +26,12 @@ public class UserController {
         if(contact.isEmpty()){
             return ResponseEntity.notFound().build();
         }else{
-            String idContact = UserManager.findUser((String) contact.get("phoneNumber"));
+            Map<String, Object> user = UserManager.findUser((String) contact.get("phoneNumber"));
 
-            if (!idContact.isEmpty()) {
-                UserManager.setContacts(idContact, (String) contact.get("id"));
+            if (user != null) {
+                UserManager.setContacts(user.get("_id").toString(), (String) contact.get("id"));
 
-                return ResponseEntity.ok(idContact);
+                return ResponseEntity.ok(user.get("_id").toString());
             }
             else {
                 return ResponseEntity.notFound().build();

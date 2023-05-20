@@ -3,71 +3,56 @@ package com.example.murmur.entities;
 import com.example.murmur.managers.UserManager;
 
 import java.util.List;
-import java.util.Random;
 
 public class User {
-    private String id;
-
-    public User(String name, String surname, String phoneNumber, String username, String password) {
-        this.id = String.valueOf(new Random().nextInt());
-
-        UserManager.addUser(this.id, name, surname, phoneNumber, username, password);
-
-    }
 
     public static String createUser(String name, String surname, String phoneNumber, String username, String password) {
-        String id = String.valueOf(new Random().nextInt());
-
-        UserManager.addUser(id, name, surname, phoneNumber, username, password);
+        String id = UserManager.addUser(name, surname, phoneNumber, username, password);
 
         return id;
-    }
-
-    public String getId(){
-        return this.id;
     }
 
     public static String getName(String id){
         return UserManager.getName(id);
     }
 
-    public void setName(String name) {
-        UserManager.setName(name, this.id);
+    public void setName(String name, String id) {
+        UserManager.setName(name, id);
     }
 
-    public String getSurname() {
-        return UserManager.getSurname(this.id);
+    public String getSurname(String id) {
+        return UserManager.getSurname(id);
     }
 
-    public void setSurname(String surname) {
-        UserManager.setSurname(surname, this.id);
+    public void setSurname(String surname, String id) {
+        UserManager.setSurname(surname, id);
     }
 
-    public String getPhoneNumber() {
-        return UserManager.getPhoneNumber(this.id);
+    public String getPhoneNumber(String id) {
+        return UserManager.getPhoneNumber(id);
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        UserManager.setPhoneNumber(phoneNumber, this.id);
+    public void setPhoneNumber(String phoneNumber, String id) {
+        UserManager.setPhoneNumber(phoneNumber, id);
     }
 
-    public String getUsername() {
-        return UserManager.getUsername(this.id);
+    public String getUsername(String id) {
+        return UserManager.getUsername(id);
     }
 
-    public void setUsername(String username) {
-        UserManager.setUsername(username, this.id);
+    public void setUsername(String username, String id) {
+        UserManager.setUsername(username, id);
     }
 
-    public String getPassword() {
-        return UserManager.getPassword(this.id);
+    public String getPassword(String id) {
+        return UserManager.getPassword(id);
     }
 
-    public void setPassword(String password) {
-        UserManager.setPassword(password, this.id);
+    public void setPassword(String password, String id) {
+        UserManager.setPassword(password, id);
     }
 
-    public List<Integer> getContacts(){ return UserManager.getContacts(this.id); }
+    public List<String> getContacts(String id){ return UserManager.getContacts(id); }
 
-    public void setContacts(String idContact){ UserManager.setContacts(idContact, this.id); }
+    public void setContacts(String idContact, String id){ UserManager.setContacts(idContact, id); }
 }
