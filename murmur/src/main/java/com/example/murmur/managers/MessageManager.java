@@ -33,7 +33,7 @@ public class MessageManager {
     }
 
     public static void setText(String text, String id){
-        dataBase.update(id, "text", text, "user");
+        dataBase.update(id, "text", text, "message");
     }
 
     public static String getDate(String id){

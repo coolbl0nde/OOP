@@ -3,6 +3,7 @@ package com.example.murmur.entities;
 import com.example.murmur.managers.UserManager;
 
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -16,43 +17,47 @@ public class User {
         return UserManager.getName(id);
     }
 
-    public void setName(String name, String id) {
+    public static void setName(String name, String id) {
         UserManager.setName(name, id);
     }
 
-    public String getSurname(String id) {
+    public static String getSurname(String id) {
         return UserManager.getSurname(id);
     }
 
-    public void setSurname(String surname, String id) {
+    public static void setSurname(String surname, String id) {
         UserManager.setSurname(surname, id);
     }
 
-    public String getPhoneNumber(String id) {
+    public static String getPhoneNumber(String id) {
         return UserManager.getPhoneNumber(id);
     }
 
-    public void setPhoneNumber(String phoneNumber, String id) {
+    public static void setPhoneNumber(String phoneNumber, String id) {
         UserManager.setPhoneNumber(phoneNumber, id);
     }
 
-    public String getUsername(String id) {
+    public static String getUsername(String id) {
         return UserManager.getUsername(id);
     }
 
-    public void setUsername(String username, String id) {
+    public static void setUsername(String username, String id) {
         UserManager.setUsername(username, id);
     }
 
-    public String getPassword(String id) {
+    public static String getPassword(String id) {
         return UserManager.getPassword(id);
     }
 
-    public void setPassword(String password, String id) {
+    public static void setPassword(String password, String id) {
         UserManager.setPassword(password, id);
     }
 
-    public List<String> getContacts(String id){ return UserManager.getContacts(id); }
+    public static List<String> getContacts(String id){ return UserManager.getContacts(id); }
 
-    public void setContacts(String idContact, String id){ UserManager.setContacts(idContact, id); }
+    public static void setContacts(String idContact, String id){ UserManager.setContacts(idContact, id); }
+
+    public static Map<String, Object> getUser(String id){ return UserManager.getUser(id); }
+
+    public static Map<String, Object> findUser(String fieldName, String fieldValue){ return UserManager.findUser(fieldName, fieldValue); }
 }

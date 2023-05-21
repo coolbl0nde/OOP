@@ -96,8 +96,8 @@ public class UserManager {
         dataBase.update(id, "contacts", contacts, "user");
     }
 
-    public static Map<String, Object> findUser(String phoneNumber){
-        Map<String, Object> id = dataBase.getByFieldValue("phoneNumber", phoneNumber, "user");
+    public static Map<String, Object> findUser(String fieldName, String fieldValue){
+        Map<String, Object> id = dataBase.getByFieldValue(fieldName, fieldValue, "user");
 
         return id;
     }

@@ -97,9 +97,8 @@ public class ChatManager {
         dataBase.update(groupChatId, "name", name,"chat");
     }
 
-    public static List<String> getNameOfUsers(String groupChatId){
-        //name of users
-        List<String> users = (List<String>) dataBase.getFieldValue(groupChatId, "users", "chat");
+    public static List<String> getUsers(String id){
+        List<String> users = (List<String>) dataBase.getFieldValue(id, "users", "chat");
 
         return users;
     }

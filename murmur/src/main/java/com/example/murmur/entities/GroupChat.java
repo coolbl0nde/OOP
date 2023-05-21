@@ -6,23 +6,20 @@ import java.util.List;
 
 public class GroupChat extends Chat {
 
-    public void addUser(String userId, String id){
+    public static void addUser(String userId, String id){
         ChatManager.addUser(userId, id);
     }
 
-    public void deleteUser(String userId, String id){
+    public static void deleteUser(String userId, String id){
         ChatManager.deleteUser(userId, id);
     }
 
-    public String getGroupName(String id){
+    public static String getGroupName(String id){
         return ChatManager.getGroupName(id);
     }
 
-    public void setGroupName(String name, String id){
+    public static void setGroupName(String name, String id){
         ChatManager.setGroupName(name, id);
     }
 
-    public List<String> getNameOfUsers(String id){
-        return ChatManager.getNameOfUsers(id);
-    }
 }

@@ -28,16 +28,18 @@ public class Message {
         return MessageManager.getText(id);
     }
 
-    public void setText(String text, String id){
+    public static void setText(String text, String id){
         MessageManager.setText(text, id);
     }
 
-    public String getDate(String id){
+    public static String getDate(String id){
         return MessageManager.getDate(id);
     }
 
-    public String getTime(String id){
+    public static String getTime(String id){
         return MessageManager.getTime(id);
     }
+
+    public static Map<String,Object> getMessageInfo(String id){ return MessageManager.getMessageInfo(id); }
 
 }

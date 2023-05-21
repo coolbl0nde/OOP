@@ -1,7 +1,7 @@
 package com.example.murmur.controllers;
 
 import com.example.murmur.entities.User;
-import com.example.murmur.managers.UserManager;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +19,8 @@ public class AuthController {
         String regex = "\\+\\d{7,12}";
 
         if (user != null) {
-            Map<String, Object> phoneNumber = UserManager.findUser(user.get("phoneNumber"));
-            Map<String, Object> username = UserManager.findUser(user.get("username"));
+            Map<String, Object> phoneNumber = User.findUser("phoneNumber", user.get("phoneNumber"));
+            Map<String, Object> username = User.findUser("username", user.get("username"));
 
             if(!user.get("phoneNumber").matches(regex)){
                 return ResponseEntity.internalServerError().body("Incorrect phone number");
@@ -45,7 +45,7 @@ public class AuthController {
     public ResponseEntity<String> auth(@RequestBody Map<String, Object> user){
 
         if(user != null){
-            Map<String, Object> userExist = UserManager.findUser((String) user.get("phoneNumber"));
+            Map<String, Object> userExist = User.findUser("phoneNumber", (String) user.get("phoneNumber"));
 
             if(userExist != null && userExist.get("username").equals(user.get("username"))){
 
