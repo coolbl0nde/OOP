@@ -23,17 +23,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>MySerializer</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/MySerializer.jar</systemPath>
-        </dependency>
-
-        <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>3.12.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
         </dependency>
 
         <dependency>
